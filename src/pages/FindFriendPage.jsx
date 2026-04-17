@@ -1,5 +1,13 @@
 import { useState } from "react";
 
+// ✅ Same MOCK_USERS
+const MOCK_USERS = [
+  { roll: "202401100200100", password: "Ganga@123", name: "Ganga Tripathi" },
+  { roll: "202401100200189", password: "Manish@123", name: "Manish Sharma" },
+  { roll: "202401100200220", password: "Om@123", name: "Om Prakash Yadav" },
+  { roll: "20240110020099", password: "Gagan@123", name: "Gagan Sharma" }
+];
+
 export default function FindFriendPage() {
   const [roll, setRoll] = useState("");
   const [result, setResult] = useState(null);
@@ -7,7 +15,11 @@ export default function FindFriendPage() {
   const handleSearch = () => {
     const data = JSON.parse(localStorage.getItem("registrations")) || [];
 
-    const found = data.find((item) => item.roll === roll);
+    // ✅ Combine both (localStorage priority first)
+    const allUsers = [...data, ...MOCK_USERS];
+
+    // ✅ Find user
+    const found = allUsers.find((item) => item.roll === roll);
 
     if (found) {
       setResult(found);
@@ -43,7 +55,7 @@ export default function FindFriendPage() {
         {result && result !== "not-found" && (
           <div className="mt-6 text-white bg-white/20 p-4 rounded-lg">
             <p><strong>Name:</strong> {result.name}</p>
-            <p><strong>Event:</strong> {result.event}</p>
+            <p><strong>Event:</strong> {result.event || "N/A"}</p>
             <p><strong>Roll:</strong> {result.roll}</p>
           </div>
         )}

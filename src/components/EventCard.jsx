@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import Countdown from "./Countdown";
 
 export default function EventCard({ event }) {
   return (
     <Link to={`/events/${event.id}`} className="group block">
       <div className="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
+        
         <div className="relative h-48 overflow-hidden">
           <img
             src={event.image}
@@ -25,14 +27,25 @@ export default function EventCard({ event }) {
           <div className="space-y-2 mt-auto">
             <div className="flex items-center text-sm text-slate-500 dark:text-slate-400">
               <span className="mr-2">Date:</span>
-              {new Date(event.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })} at {event.time}
+              {new Date(event.date).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })}{" "}
+              at {event.time}
             </div>
+
             <div className="flex items-center text-sm text-slate-500 dark:text-slate-400">
               <span className="mr-2">Venue:</span>
               {event.venue}
             </div>
+
+            <div className="mt-4">
+              <Countdown date={event.date} time={event.time} />
+            </div>
           </div>
         </div>
+
       </div>
     </Link>
   );

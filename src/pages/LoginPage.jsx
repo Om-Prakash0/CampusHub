@@ -12,6 +12,7 @@ const MOCK_USERS = [
 export default function LoginPage({ setUser }) {
   const [roll, setRoll] = useState("");
   const [password, setPassword] = useState("");
+  const [showAccounts, setShowAccounts] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -78,11 +79,27 @@ export default function LoginPage({ setUser }) {
         </form>
 
         <div className="mt-8 p-4 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm rounded-2xl text-xs text-slate-600 dark:text-slate-400 text-center border border-slate-200/50 dark:border-slate-700/50">
-          <p className="font-bold mb-1 text-slate-800 dark:text-slate-200">Test Accounts:</p>
-          <p>Roll: 202401100200100 | Pass: Ganga@123</p>
-          <p>Roll: 20240110020099 | Pass: Gagan@123</p>
-          <p>Roll: 202401100200189 | Pass: Manish@123</p>
-          <p>Roll: 202401100200220 | Pass: Om@123</p>
+          <p
+            onClick={() => setShowAccounts(!showAccounts)}
+            className="font-bold mb-2 text-slate-800 dark:text-slate-200 cursor-pointer hover:text-indigo-600 transition"
+          >
+            Test Accounts {showAccounts ? "▲" : "▼"}
+          </p>
+          {showAccounts && (
+            MOCK_USERS.map((user, index) => (
+              <div
+                key={index}
+                onClick={() => {
+                  setRoll(user.roll);
+                  setPassword(user.password);
+                  toast.success("Credentials filled!");
+                }}
+                className="cursor-pointer text-center py-1 rounded-lg hover:bg-indigo-50 dark:hover:bg-slate-700 hover:text-indigo-600 transition"
+              >
+                Roll: {user.roll} | Pass: {user.password}
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import eventsData from "../data/events.json";
 import Countdown from "../components/Countdown";
 
+
 export default function EventDetailsPage({ registeredEvents, setRegisteredEvents }) {
   const { id } = useParams();
   const navigate = useNavigate();

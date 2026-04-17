@@ -17,6 +17,7 @@ import HelpPage from "./pages/HelpPage";
 import Footer from "./components/Footer";
 import FindFriendPage from "./pages/FindFriendPage";
 import ProfilePage from "./pages/ProfilePage";
+import FloatingHelpButton from "./components/FloatingHelpButton";
 
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -105,6 +106,13 @@ function AppContent({ user, setUser, registeredEvents, setRegisteredEvents }) {
 
             <Route path="*" element={<Navigate to={user ? "/" : "/login"} replace />} />
           </Routes>
+
+          <>
+            {/* your routes / pages */}
+
+            <FloatingHelpButton />
+          </>
+
         </AnimatePresence>
       </main>
 
