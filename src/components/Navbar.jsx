@@ -4,39 +4,68 @@ import { Link, useLocation } from "react-router-dom";
 export default function Navbar({ user, setUser }) {
   const location = useLocation();
   const [isDark, setIsDark] = useState(false);
-  const firstName = user.name.split(' ')[0];
+
+  const firstName = user?.name?.split(" ")[0] || "User";
 
   const toggleTheme = () => {
     setIsDark(!isDark);
-    if (!isDark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    document.documentElement.classList.toggle("dark");
   };
 
   const handleLogout = () => {
-    setUser(null); // Instantly logs the user out
+    setUser(null);
   };
 
-  return (
-    <nav className="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
-        
-        <div className="flex items-center gap-8">
-          <Link to="/" className="text-2xl font-black text-indigo-600 dark:text-indigo-400">KIET Events</Link>
-          <div className="hidden md:flex items-center gap-6">
-            <Link to="/" className={`font-medium ${location.pathname === '/' ? 'text-indigo-600' : 'text-slate-500 dark:text-slate-400'}`}>Discover</Link>
-            <Link to="/my-registrations" className={`font-medium ${location.pathname === '/my-registrations' ? 'text-indigo-600' : 'text-slate-500 dark:text-slate-400'}`}>My Tickets</Link>
-          </div>
-        </div>
+  const linkStyle = (path) =>
+    `relative px-2 py-1 transition-all duration-300 ${location.pathname === path
+      ? "text-indigo-600 dark:text-indigo-400"
+      : "text-slate-600 dark:text-slate-400 hover:text-indigo-500"
+    }`;
 
-        <div className="flex items-center gap-4">
-          <button onClick={toggleTheme} className="p-2 text-xl">{isDark ? '☀️' : '🌙'}</button>
-          <span className="hidden sm:block text-sm font-medium text-indigo-700 dark:text-indigo-300">Hi, {firstName}</span>
-          <button onClick={handleLogout} className="text-sm font-bold text-red-500 hover:text-red-700">Logout</button>
-        </div>
+  return (
+    <>
+      {/* 🔥 TOP HEADING */}
+      <div className="text-center py-5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-md">
+        <h1 className="text-3xl font-extrabold text-white tracking-wide">
+          KIET Events 🎉
+        </h1>
       </div>
-    </nav>
+
+      {/* 🔥 NAVBAR */}
+      <nav className="sticky top-0 z-50 w-full backdrop-blur-xl bg-white/70 dark:bg-slate-900/70 border-b border-slate-200 dark:border-slate-700">
+
+        <div className="w-full flex items-center justify-evenly text-sm font-semibold h-14">
+
+          <Link to="/" className={linkStyle("/")}>Discover</Link>
+
+          <Link to="/my-registrations" className={linkStyle("/my-registrations")}>
+            My Tickets
+          </Link>
+
+          <Link to="/help" className={linkStyle("/help")}>Help</Link>
+
+          <Link to="/find-friend" className={linkStyle("/find-friend")}>
+            Find Friend
+          </Link>
+
+          <Link to="/my-registrations" className={linkStyle("/my-registrations")}>
+            🎫 Gate Pass
+          </Link>
+
+          <button onClick={toggleTheme} className="text-lg">
+            {isDark ? "☀️" : "🌙"}
+          </button>
+
+          <Link to="/profile" className={linkStyle("/profile")}>
+            Hi, {firstName}
+          </Link>
+
+          <button onClick={handleLogout} className="text-red-500">
+            Logout
+          </button>
+
+        </div>
+      </nav>
+    </>
   );
 }

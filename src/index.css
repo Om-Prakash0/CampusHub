@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
-/* 🌙 Dark Mode support (Tailwind v4) */
+/* 🌙 This line fixes the Dark Mode toggle for Tailwind v4! */
 @custom-variant dark (&:is(.dark *));
 
-/* Full screen layout */
+/* This forces the app to take up the full screen */
 html, body, #root {
   margin: 0;
   padding: 0;
@@ -11,7 +11,4 @@ html, body, #root {
   min-height: 100vh;
 }
 
-/* ✅ Button clicked state */
-.btn-clicked {
-  @apply bg-white text-black; /* Tailwind way */
-}
+

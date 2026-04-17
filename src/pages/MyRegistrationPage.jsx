@@ -1,9 +1,8 @@
-/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import eventsData from "../data/events.json";
-// 🚨 Notice we removed the buggy 'react-qr-code' import completely!
 
+// QR image is rendered with an external image URL.
 export default function MyRegistrationPage({
   user,
   registeredEvents = [],
@@ -25,7 +24,7 @@ export default function MyRegistrationPage({
   return (
     <div className="max-w-4xl mx-auto">
       <h1 className="text-3xl font-black mb-8 dark:text-white">
-        My Tickets 🎟️
+        My Tickets
       </h1>
 
       {myEvents.length === 0 ? (
@@ -43,7 +42,6 @@ export default function MyRegistrationPage({
       ) : (
         <div className="space-y-6">
           {myEvents.map((event) => {
-            // Generate a real QR code using a free image API (No packages needed!)
             const qrData = `Ticket | ${studentName} | ${event.title}`;
             const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrData)}`;
 
@@ -71,7 +69,6 @@ export default function MyRegistrationPage({
                 </div>
 
                 <div className="bg-white p-4 rounded-xl shadow-sm border">
-                  {/* Using a standard HTML image tag to display the QR Code */}
                   <img
                     src={qrImageUrl}
                     alt="Ticket QR Code"
